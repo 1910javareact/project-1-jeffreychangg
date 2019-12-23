@@ -10,7 +10,7 @@ export async function mspLogin(username:string, password:string){
     
     try{
         const response = await msUserClient.post('/login', credentials)
-        console.log(`response: ${response}`);
+        
         
         if(response.status===200){
             return{
@@ -94,7 +94,27 @@ export async function mspLogin(username:string, password:string){
         }
     }
 
-    
+/////////////////////////////////////////////////////////////
+
+export const getReimbursementsByAuthor = async (author: number) => {
+    try {
+        let response = await msUserClient.get('/reimbursements/author/' + author)
+        if(response.status === 200){
+            return{
+                status:response.status,
+                body:response.data
+            }
+        }else{
+            return {
+                status:response.status,
+                body:undefined
+            }
+    }
+    } catch (e) {
+        console.log(e);
+    throw new Error('Something Went Wrong')
+    }
+}
 
 
     export const getUserById = async (userId: number) => {
@@ -136,6 +156,43 @@ export async function mspLogin(username:string, password:string){
                     body:response.data
                 }
             }else{
+                return {
+                    status:response.status,
+                    body:undefined
+                }
+        }
+        } catch (e) {
+            console.log(e);
+        throw new Error('Something Went Wrong')
+        }
+    }
+
+    export const submitReimbursement= async (amount: number,dateSubmitted: number,description:string,type:number) => {
+        const body={ 
+            reimbursementId: 0,
+            author:0,
+            amount: amount,
+            dateSubmitted: dateSubmitted, 
+            dateResolved:0,
+            description: description, 
+            resolver:0,     
+            status:0, 
+            type: type
+        }
+        try {
+           
+            
+            let response = await msUserClient.post('/reimbursements/',body)
+            if(response.status === 201){
+                console.log(response);
+                return{
+                    
+                    
+                    status:response.status,
+                    body:response.data
+                }
+            }else{
+                
                 return {
                     status:response.status,
                     body:undefined

@@ -20,7 +20,7 @@ const App: React.FC = () => {
       <Route path='/fmanager' component={FmanagerPageComponent} />
       <Route path='/' component={LoginComponent} />
       </Switch>      
-      <p>這是一個沒有用的網頁</p>
+      
       </Router>
       </Provider>
 

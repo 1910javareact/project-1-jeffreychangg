@@ -5,7 +5,7 @@ import { User } from "../../model/user"
 
 import { Reimbursement } from "../../model/reimbursement"
 
-import {getAllReimbursements, getReimbursementsByStatusId, getUserById} from "../../remote/esr-user-cleint/ers-user"
+import {getAllReimbursements, getReimbursementsByStatusId, getUserById, getReimbursementsByAuthor} from "../../remote/esr-user-cleint/ers-user"
 
 import { ReimbursementDisplayRowComponent } from "../user-page-component/reimbursement-display-row/ReimbursementRowComponent"
 import FmanagerNavBarComponent from "../navbar-component/FmanagerNavbarComponent"
@@ -25,7 +25,9 @@ interface IFmanagerPageState{
     allUsers:User[],
     allNewUser:User,
     statusId: number,
-    userId: number
+    userId: number,
+    idReimbursement:Reimbursement[],
+    author: number
 }
 
 
@@ -39,7 +41,9 @@ export class FmanagerPageComponent extends React.Component<IFmanagerPageComponen
             allUsers: [],
             allNewUser: new User(0,'','','','','',new Role(0,'')),
             statusId: 0,
-            userId: 0
+            userId: 0,
+            idReimbursement:[],
+            author:0
         }
     }
 ////////////////////////////////////////////////////////// find reimbursement by status
@@ -88,6 +92,28 @@ export class FmanagerPageComponent extends React.Component<IFmanagerPageComponen
     }
 
 /////////////////////////////////////////////////////////////////////////////////
+updateRUserId = (e:any)=>{
+    this.setState({
+        ...this.state,
+        statusId: e.target.value
+    })
+}
+
+submitRUserId = async (e:SyntheticEvent) => {
+    e.preventDefault()
+    try {
+        let r = await getReimbursementsByAuthor(this.state.statusId)
+        if (r.status === 200){
+            this.setState({
+                ...this.state,
+                idReimbursement: r.body
+            })
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////
     async componentDidMount() {
         try {
             let r = await getAllReimbursements(this.props.user.userId)
@@ -135,6 +161,17 @@ export class FmanagerPageComponent extends React.Component<IFmanagerPageComponen
         } catch (e) {
             console.log(e);
         }
+        try {
+            let u = await getReimbursementsByAuthor(this.props.reimbursement.author)
+            if (u.status === 200){
+                this.setState({
+                    ...this.state,
+                    idReimbursement: u.body
+                })
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     
@@ -147,6 +184,9 @@ export class FmanagerPageComponent extends React.Component<IFmanagerPageComponen
         })
         let rsrows = this.state.allNewReimbursements.map((e) => {
             return <ReimbursementDisplayRowComponent reimbursement={e} key={'reimbursement ' + e.reimbursementId} />
+        })       
+         let rarows = this.state.idReimbursement.map((e) => {
+            return <ReimbursementDisplayRowComponent reimbursement={e} key={'reimbursement ' + e.author} />
         })
         return (
             <div>
@@ -269,6 +309,31 @@ export class FmanagerPageComponent extends React.Component<IFmanagerPageComponen
                     </thead>
                 </Table>
                 <br></br>
+                <form onSubmit={this.submitRUserId}>
+                    <FormGroup>
+                        <Label for="status id">Find Reimbursement by author ID</Label>
+                        <Input onChange={this.updateRUserId} type="text" name="username" id="exampleId" placeholder="Enter a author id" />
+                    </FormGroup>
+                    <Button color='blue'>Search</Button>
+                    </form>
+                    <Table bordered color='danger'>
+                        <thead>
+                            <tr>
+                                <td>reimbursementId</td>
+                                <td>author</td>
+                                <td>amount</td>
+                                <td>dateSubmitted</td>
+                                <td>dateResolved</td>
+                                <td>description</td>
+                                <td>status</td>
+                                <td>type</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rarows}
+                        </tbody>
+                    </Table>
+                    <br></br>
                 
             </div>
         )

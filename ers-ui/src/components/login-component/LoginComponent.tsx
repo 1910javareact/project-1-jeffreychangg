@@ -52,9 +52,9 @@ export class LoginComponent extends React.Component<ILoginComponentProps, any>{
                     <Button color='blue'>Log in</Button>
                 </Form>
                 <p>Hello! {this.props.user.firstName} {this.props.user.lastName}</p>
-                <Link to="/user">User Page</Link>
-                <Link to="/admin">Admin Page</Link>
-                <Link to="/fmanager">Fmanager Page</Link>
+                <Link to="/user">User </Link>
+                <Link to="/admin">Admin </Link>
+                <Link to="/fmanager">Fmanager </Link>
                 
             </div>
         )
