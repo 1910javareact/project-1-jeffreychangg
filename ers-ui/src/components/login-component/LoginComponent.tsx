@@ -34,7 +34,7 @@ export class LoginComponent extends React.Component<ILoginComponentProps, any>{
     }
 
     submitlogin = async (e:SyntheticEvent) => {
-        e.preventDefault()
+        e.preventDefault()        
         this.props.msLogin(this.state.username, this.state.password)
     }
     render(){

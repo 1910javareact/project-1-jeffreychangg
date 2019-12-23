@@ -5,12 +5,13 @@ import { User } from "../../model/user"
 
 import { Reimbursement } from "../../model/reimbursement"
 
-import {getAllReimbursements, getReimbursementsByStatusId} from "../../remote/esr-user-cleint/ers-user"
+import {getAllReimbursements, getReimbursementsByStatusId, getUserById} from "../../remote/esr-user-cleint/ers-user"
 
 import { ReimbursementDisplayRowComponent } from "../user-page-component/reimbursement-display-row/ReimbursementRowComponent"
 import FmanagerNavBarComponent from "../navbar-component/FmanagerNavbarComponent"
 import { UserDisplayRowComponent } from "./user-display-row/UserRowComponent"
 import { getAllUsers } from "../../remote/esr-user-cleint/ers-user"
+import { Role } from "../../model/role"
 
 
 interface IFmanagerPageComponentProps {
@@ -22,7 +23,9 @@ interface IFmanagerPageState{
     allReimbursements: Reimbursement[],
     allNewReimbursements: Reimbursement[],
     allUsers:User[],
-    statusId: number
+    allNewUser:User,
+    statusId: number,
+    userId: number
 }
 
 
@@ -34,10 +37,12 @@ export class FmanagerPageComponent extends React.Component<IFmanagerPageComponen
             allReimbursements: [],
             allNewReimbursements: [],
             allUsers: [],
-            statusId: 0
+            allNewUser: new User(0,'','','','','',new Role(0,'')),
+            statusId: 0,
+            userId: 0
         }
     }
-
+////////////////////////////////////////////////////////// find reimbursement by status
     updateStatusId = (e:any)=>{
         this.setState({
             ...this.state,
@@ -59,9 +64,30 @@ export class FmanagerPageComponent extends React.Component<IFmanagerPageComponen
             console.log(e);
         }
     }
+///////////////////////////////////////////////////////////////////// get user by id
+    updateUserId = (e:any)=>{
+        this.setState({
+            ...this.state,
+            userId: e.target.value
+        })
+    }
 
+    submitId = async (e:SyntheticEvent) => {
+        e.preventDefault()
+        try {
+            let r = await getUserById(this.state.userId)
+            if (r.status === 200){
+                this.setState({
+                    ...this.state,
+                    allNewUser: r.body
+                })
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
-
+/////////////////////////////////////////////////////////////////////////////////
     async componentDidMount() {
         try {
             let r = await getAllReimbursements(this.props.user.userId)
@@ -96,6 +122,19 @@ export class FmanagerPageComponent extends React.Component<IFmanagerPageComponen
         } catch (e) {
             console.log(e);
         }
+        try {
+            let u = await getUserById(this.props.user.userId)
+            console.log(u.body);
+            
+            if (u.status === 200){
+                this.setState({
+                    ...this.state,
+                    allNewUser: u.body
+                })
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     
@@ -115,6 +154,7 @@ export class FmanagerPageComponent extends React.Component<IFmanagerPageComponen
                     <FmanagerNavBarComponent />
                 
                 <Table bordered color='danger'>
+                    <thead>
                     <tr>
                         <td>UserId</td>
                         <td>{this.props.user.userId}</td>
@@ -135,6 +175,7 @@ export class FmanagerPageComponent extends React.Component<IFmanagerPageComponen
                         <td>Role</td>
                         <td>{this.props.user.role.role}</td>
                     </tr>
+                    </thead>
                 </Table>
                 <Table bordered color='danger'>
                         <thead>
@@ -194,6 +235,39 @@ export class FmanagerPageComponent extends React.Component<IFmanagerPageComponen
                             {rsrows}
                         </tbody>
                     </Table>
+                    <br></br>
+
+                    <form onSubmit={this.submitId}>
+                    <FormGroup>
+                        <Label for="status id">Find User by ID</Label>
+                        <Input onChange={this.updateUserId} type="text" name="username" id="exampleId" placeholder="Enter a user id" />
+                    </FormGroup>
+                    <Button color='blue'>Search</Button>
+                    </form>
+                    <Table bordered color='danger'>
+                    <thead>
+                    <tr>
+                        <td>UserId</td>
+                        <td>{this.state.allNewUser.userId}</td>
+                    </tr>
+                    <tr>
+                        <td>Username</td>
+                        <td>{this.state.allNewUser.username}</td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>{this.state.allNewUser.firstName} {this.state.allNewUser.lastName}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{this.state.allNewUser.email}</td>
+                    </tr>
+                    <tr>
+                        <td>Role</td>
+                        <td>{this.state.allNewUser.role.role}</td>
+                    </tr>
+                    </thead>
+                </Table>
                 
             </div>
         )

@@ -7,11 +7,13 @@ export const msLoginTypes = {
 }
 
 export const msLogin = (username:string, password:string) => async (dispatch:any) => {
-
     try{
+        console.log('this is running');
+        
         let res = await mspLogin(username, password)
         //a successful login
-        if(res.status === 200){
+        console.log('running')
+        if(res.status === 200){            
             //this is how do it when we have async operations
             dispatch({
                 type:msLoginTypes.SUCCESSFUL_LOGIN,
@@ -25,6 +27,8 @@ export const msLogin = (username:string, password:string) => async (dispatch:any
             })
         }
     }catch(e){
+        console.log('running');
+        
         dispatch({
             type:msLoginTypes.UNSUCCESSFUL_LOGIN
         })
