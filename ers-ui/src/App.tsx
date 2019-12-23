@@ -23,15 +23,10 @@ const App: React.FC = () => {
       <p>這是一個沒有用的網頁</p>
       </Router>
       </Provider>
-      
-
-
-
-
-
 
     </div>
   );
 }
 
 export default App;
+

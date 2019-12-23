@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText } from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink,  NavbarText } from 'reactstrap';
 
 
 // export const NavBarComponent = (props: any) => {
@@ -47,25 +47,9 @@ const AdminNavBarComponent = (props: any) => {
             <NavItem>
               <NavLink href="/user/">User Page</NavLink>
             </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Reimbursement
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  Check Reimbursement
-                </DropdownItem>
-                <DropdownItem>
-                  Submit Reimbursement
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>
-                  Reset
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+
           </Nav>
-          <NavbarText>You are loggin in as admin</NavbarText>
+          <NavbarText>You are logged in as admin</NavbarText>
         </Collapse>
       </Navbar>
     </div>

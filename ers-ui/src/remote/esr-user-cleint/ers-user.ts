@@ -116,3 +116,33 @@ export async function mspLogin(username:string, password:string){
         throw new Error('Something Went Wrong')
         }
     }
+
+    export const updateUser =async (userid: number, username: string, password: string, firstname: string, lastname: string, email: string, role: any)=> {
+        const body = {
+            userId:userid,
+            userName:username,
+            password:password,
+            firstName:firstname,
+            lastName:lastname,
+            email:email,
+            roleId:role
+        }
+        
+        try {
+            let response = await msUserClient.patch('/users/',body)
+            if(response.status === 200){
+                return{
+                    status:response.status,
+                    body:response.data
+                }
+            }else{
+                return {
+                    status:response.status,
+                    body:undefined
+                }
+        }
+        } catch (e) {
+            console.log(e);
+        throw new Error('Something Went Wrong')
+        }
+    }

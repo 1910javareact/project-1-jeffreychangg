@@ -36,3 +36,48 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  text-align: center;
+background-color: #4169E1;
+}
+
+td {
+  text-align: center;
+  border: solid black 1px;
+  color: white;
+}
+
+thead {
+  background-color: #F08080;
+  color: black;
+}
+thead > tr> td {
+  color: black !important;
+}
+li {
+  list-style: none;
+  display: inline;
+  margin: 2em;
+  border: solid black 1px;
+  background-color: gray;
+
+}
+
+nav a {
+  margin: 1em;
+  font-size: 25;
+}
+
+nav > a {
+  margin: 1em;
+  font-size: 25;
+}
+
+.navbar-brand {
+  font-size: 25;
+}
+
+label {
+  color: white;
+}

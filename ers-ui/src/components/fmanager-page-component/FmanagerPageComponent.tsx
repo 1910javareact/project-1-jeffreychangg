@@ -268,6 +268,7 @@ export class FmanagerPageComponent extends React.Component<IFmanagerPageComponen
                     </tr>
                     </thead>
                 </Table>
+                <br></br>
                 
             </div>
         )
