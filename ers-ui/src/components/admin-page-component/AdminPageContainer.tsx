@@ -1,6 +1,7 @@
 import { IState } from "../../reducer"
 import { connect } from "react-redux"
-import { UserPageComponent } from "./UserPageComponent"
+import { AdminPageComponent } from "./AdminPageComponent"
+
 
 
 const mapStateToProps = (state: IState) => {
@@ -9,4 +10,4 @@ const mapStateToProps = (state: IState) => {
     }
 }
 
-export default connect(mapStateToProps)(UserPageComponent)
+export default connect(mapStateToProps)(AdminPageComponent)

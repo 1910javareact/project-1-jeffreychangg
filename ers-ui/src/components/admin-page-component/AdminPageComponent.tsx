@@ -4,18 +4,19 @@ import { Table } from "reactstrap"
 import { User } from "../../model/user"
 import { msUserClient } from "../../remote/esr-user-cleint/ers-user-client"
 import { Reimbursement } from "../../model/reimbursement"
-import { ReimbursementDisplayRowComponent } from "./reimbursement-display-row/ReimbursementRowComponent"
-import NavBarComponent from "../navbar-component/NavbarComponent"
+import AdminNavBarComponent from "../navbar-component/AdminNavbarComponent"
+import { ReimbursementDisplayRowComponent } from "../user-page-component/reimbursement-display-row/ReimbursementRowComponent"
 
-interface IUserPageComponentProps {
+
+interface IAdminPageComponentProps {
     user: User
 }
 
-interface IUserPageState{
+interface IAdminPageState{
     allReimbursements: Reimbursement[]
 }
 
-export class UserPageComponent extends React.Component<IUserPageComponentProps, IUserPageState> {
+export class AdminPageComponent extends React.Component<IAdminPageComponentProps, IAdminPageState> {
     constructor(props: any) {
         super(props)
         this.state = {
@@ -63,12 +64,10 @@ export class UserPageComponent extends React.Component<IUserPageComponentProps, 
         })
         return (
             <div>
-               
                 <nav>
-                    <NavBarComponent />
+                    <AdminNavBarComponent />
                 </nav>
-               
-                <Table bordered color='blue'>
+                <Table bordered color='danger'>
                     <tr>
                         <td>UserId</td>
                         <td>{this.props.user.userId}</td>

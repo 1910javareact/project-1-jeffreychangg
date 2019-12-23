@@ -29,7 +29,7 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Un
 //   );
 // }
 
-const NavBarComponent = (props: any) => {
+const AdminNavBarComponent = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -49,16 +49,6 @@ const NavBarComponent = (props: any) => {
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                User
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  User info
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
                 Reimbursement
               </DropdownToggle>
               <DropdownMenu right>
@@ -75,10 +65,10 @@ const NavBarComponent = (props: any) => {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText>You are logging in as user</NavbarText>
+          <NavbarText>You are loggin in as admin</NavbarText>
         </Collapse>
       </Navbar>
     </div>
   );
 }
-export default NavBarComponent;
+export default AdminNavBarComponent;

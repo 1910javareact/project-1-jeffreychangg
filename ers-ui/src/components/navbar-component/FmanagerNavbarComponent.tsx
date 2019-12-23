@@ -29,7 +29,7 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Un
 //   );
 // }
 
-const NavBarComponent = (props: any) => {
+const FmanagerNavBarComponent = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -49,36 +49,29 @@ const NavBarComponent = (props: any) => {
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                User
+                Find User By ID
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
-                  User info
+                  1
+                </DropdownItem>
+                <DropdownItem>
+                  2
+                </DropdownItem>
+                <DropdownItem>
+                  3
+                </DropdownItem>
+                <DropdownItem>
+                  4
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Reimbursement
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  Check Reimbursement
-                </DropdownItem>
-                <DropdownItem>
-                  Submit Reimbursement
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>
-                  Reset
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+ 
           </Nav>
-          <NavbarText>You are logging in as user</NavbarText>
+          <NavbarText>You are logging in as finance manager</NavbarText>
         </Collapse>
       </Navbar>
     </div>
   );
 }
-export default NavBarComponent;
+export default FmanagerNavBarComponent;
